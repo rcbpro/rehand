@@ -1,0 +1,105 @@
+.qq-uploader { position:relative; width: 100%;}
+
+
+.qq-upload-button-hover {background:#cc0000;}
+.qq-upload-button-focus {outline:1px dotted black;}
+
+.qq-upload-drop-area {
+    position:absolute; top:0; left:0; width:100%; height:100%; min-height: 70px; z-index:2;
+    background:#FF9797; text-align:center; 
+}
+.qq-upload-drop-area span {
+    display:block; position:absolute; top: 50%; width:100%; margin-top:-8px; font-size:16px;
+}
+.qq-upload-drop-area-active {background:#FF7171;}
+
+.qq-upload-list {margin:15px 35px; padding:0; list-style:disc;}
+.qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-file {}
+.qq-upload-spinner {display:inline-block; background: url("loading.gif"); width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-size,.qq-upload-cancel {font-size:11px;}
+
+.qq-upload-failed-text {display:none;}
+.qq-upload-fail .qq-upload-failed-text {display:inline;}
+.qq-image{
+}
+.qq-progress{
+	background-color:#2586d0;
+	position: absolute;
+	height:100%;
+	left:0;
+	width:0;
+	
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.4) inset;
+	
+	-moz-transition:0.25s;
+	-webkit-transition:0.25s;
+	-o-transition:0.25s;
+	transition:0.25s;
+}
+.qq-progressHolder{
+	position: absolute;
+	background-color:#252f38;
+	height:12px;
+	width:100%;
+	left:0;
+	top:45%;
+	box-shadow:0 0 2px #000;
+}
+
+
+
+.qq-preview.done .progress{
+	width:100% !important;
+}
+.preview{
+	width:auto;
+	height: auto;
+	float:left;
+	margin: 5px;
+	position: relative;
+	text-align: center;
+}
+
+.preview img{
+	max-width: 900px;
+	border:3px solid #fff;
+	display: block;
+	box-shadow:0 0 2px #000;
+}
+.thumbImage{
+	display:block;
+	cursor:pointer;
+}
+.thumbImage img{
+	max-width:50px;
+}
+.imageHolder{
+	display: inline-block;
+	position:relative;
+}
+#smallThumbs{
+	position:fixed;
+	top:80px;
+	left:100px;
+	height:300px;
+	width:auto;
+	
+}
+.opOut{
+	opacity:0.4;
+	filter:alpha(opacity=40);
+}
+#uploadButton {
+    display:block; /* or inline-block */
+    width: 105px; padding: 7px 0; text-align:center;    
+    background:#880000; border-bottom:1px solid #ddd;color:#fff;
+	position:fixed;
+	top:50px;
+	left:200px;	
+}
+

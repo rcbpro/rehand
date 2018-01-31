@@ -1,0 +1,94 @@
+<?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+<!-- This is for the recover password box -->
+<div id="login_recover_boxes">
+    <div id="login_recover_dialog" class="login_recover_window">
+    <a href="javascript:void(0);" class="close"></a>
+            <span class="titlelogin">Reset Password</span>
+            <div class="clearH"></div>
+            <form id="new_PasswordForm" name="new_PasswordForm" action="" method="post">
+                <input id="curemail" type="text" class="InputBg" name="cur_email" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />
+                <div class="clear"></div>
+                <span id="recover_password_status"></span>
+                <div id="forgotPassError"></div>
+                <div id="forgotPassSuccess"></div>                
+                <div class="clearH10"></div>
+                <input type="button" id="request_Password" name="request_Password" value="Reset Password" class="ResetButton" /></td>
+            </form>
+    </div>
+    <div id="login_recover_mask"></div>
+</div>
+<!-- This is for the login box -->
+<div id="login_boxes">
+    <div id="login_dialog" class="login_window">
+    <a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Login to Rehand</span>
+        <div class="clearH"></div>
+        <div id="login_box">
+            <form id="directLoginForm" name="directLoginForm" action="http://<?php echo $_SERVER['HTTP_HOST']?>/www.rehand.com/users/login" method="post">
+            	<input id="directLoginEmail" class="InputBg" type="text" name="directLogin[email]" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}" onfocus="if (this.value == 'Email Address') {this.value = '';}" />
+                <!--<input id="directLoginPassword" type="password" name="directLogin[password]" class="password InputBg" value="Password" onblur="if (this.value == '') {this.value = 'Password';this.type = 'text';}" onfocus="if (this.value == 'Password') {this.value = ''; this.type = 'password';}" />-->
+                <input type="password" id="directLoginPassword" name="directLogin[password]" class="password InputBg" value="" />
+                <input type="text" id="directLoginPassword_text" class="password InputBg" value="Password" readonly="readonly" />
+                <div id="directLoginError"><!-- --></div>
+                <div class="clearH10"></div>
+                <input id="directLoginSubmit" class="LoginButton" type="button" name="directLoginSubmit" value="" />
+                <div class="clearH15"></div>
+                <a id="ForgotPassword" href="javascript:void(0);">Forgot your password?</a>
+                <div class="floatr"><input type="checkbox" name="keep_me_logged_in" style="margin-right:7px;cursor:pointer;" />Remember Me</div>
+                <div class="clearH15"></div>
+                <img src="public/images/or.jpg" />
+                <div class="clear"></div>
+                <a href="../users/fblogin" class="LoginFB"></a>
+                <div class="clearH15"></div>
+                <div class="TextCenter">Don't have an account? <a href="javascript:void(0);" id="secondaraySignUpLink">Sign up now!</a></div>
+            </form>
+        </div>
+    </div>
+    <div id="login_mask"></div>
+</div>
+<!-- #model box for the registration -->
+<div id="registration_boxes">
+    <div id="dialog" class="window">
+    <a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Register with Rehand</span>
+        <div class="clearH"></div>
+		  <?php if (empty($_POST)):?>
+          <div id="box">
+              <form id="newUser" name="newUser" action="http://<?php echo $_SERVER['HTTP_HOST']?>/www.rehand.com/users/register" method="post">
+                <input id="name" class="InputBg" type="text" name="newUser[name]" value="Name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="if (this.value == 'Name') {this.value = '';}" />
+                <!--<span id="name_status"></span>-->
+                <input id="user_id" class="InputBg" type="text" name="newUser[email]" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}" onfocus="if (this.value == 'Email Address') {this.value = '';}" />
+                <!--<span id="availability_status"></span>-->
+                <input type="password" id="password" name="newUser[password]" class="password InputBg" value="" /> 
+                <input type="text" id="password_text" class="password InputBg" value="Password" readonly="readonly" />
+                <!--<span id="password_status2"></span>-->
+                <div id="registerErrorMsg"></div>
+                <div class="clearH10"></div>
+                <input type="button" class="RegisterButton" name="Register" value="" id="newUserRegister" />
+              </form>
+              <div class="clearH15"></div>
+                <img src="public/images/or.jpg" />
+                <div class="clear"></div>
+                <a href="../users/fblogin" class="LoginFB"></a>
+                <div class="clearH15"></div>
+                <div class="TextCenter">Already have an account? <a href="javascript:void(0);" id="secondaryLoginLink">Login now!</a></div>
+          </div>
+          <?php else:?>
+              <?php if (is_array($ViewableData)):
+                      $errorMsg = 'You have some fields have missing with values | Please fill these and come back !<br />';
+                      foreach($ViewableData as $each){
+                          $errorMsg .= '<span class=errorSpan>'.$each.'</span><br />';
+                      }
+                      echo $errorMsg;	
+              		else:?>
+                      <span class=errorSpan><?php echo $ViewableData;?></span>
+                      <?php if (empty($ViewableData)):?>
+                      <span class='normalMsgSpan'>You will be logged to the Rehand.com automatically</span>
+                      <span class='normalMsgSpan'>You will be redirected to the main page in a while : If not click </span> <span class='normalMsgSpan'><a href='<?php echo self::$globalConfig['base_url']?>'>here</a></span> 
+                      <?php endif;?>        
+              <?php endif;?>    
+          <?php endif;?>
+    </div>
+    <div id="mask"></div>
+</div>
+<?php endif;?>

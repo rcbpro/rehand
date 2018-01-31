@@ -1,0 +1,281 @@
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+	 var curRating = "",
+		 curSubTopic = "",
+		 mainTopic = "",
+		 maskHeight = "",
+		 maskWidth = "",
+		 winH = "",
+		 winW = "",
+		 submitButtonClick = false;    
+
+	$('#feedBackLink').click(function(e) {
+			 
+         e.preventDefault();
+		 resetTheFeedbackForm();
+         maskHeight = $(document).height();
+         maskWidth = $(window).width();
+         $('#feedback__mask').css({'width':maskWidth,'height':maskHeight});
+         $('#feedback__mask').fadeIn(1000);   
+         $('#feedback__mask').fadeTo("slow",0.8); 
+         winH = $(window).height();
+         winW = $(window).width();
+         $("#feedback_dialog").css('top',  winH/2-($("#feedback_dialog").height())/2);
+         $("#feedback_dialog").css('left', winW/2-($("#feedback_dialog").width())/2);
+         $("#feedback_dialog").fadeIn(2000);
+     });
+     $('.feedback_window .close').click(function (e) {
+		 var dataToBeSubmit = "";
+		 if (submitButtonClick){
+			dataToBeSubmit = checkUserDidSomeSubmission(false); 
+			if (false != dataToBeSubmit){	 
+			 	submitFeedbackDataAndDoTheResponse(checkUserDidSomeSubmission(false), true);
+		 	}
+		 }
+		 e.preventDefault();
+		 resetTheFeedbackForm();
+         $('#feedback__mask, .feedback_window').hide();
+		 return false;
+     });    
+     $("#feedback__mask").click(function () {
+		 var dataToBeSubmit = "";
+		 if (submitButtonClick){
+			dataToBeSubmit = checkUserDidSomeSubmission(false); 
+			if (false != dataToBeSubmit){	 
+			 	submitFeedbackDataAndDoTheResponse(checkUserDidSomeSubmission(false), true);
+		 	}
+		 }
+		 resetTheFeedbackForm();
+		 $(this).hide();
+         $('.feedback_window').hide();
+		 return false;		 
+     });
+	 // This is for the cancel button
+	 $("#cancelFeedback").click(function(){
+		 resetTheFeedbackForm(); 											 	
+         $('#feedback__mask, .feedback_window').hide();
+	 });
+	  // This is for the send button click functionality
+	  $("#submitFeedback").click(function(){
+		  var dataToSubmit = "";								  
+		  submitButtonClick = true;											
+		  $("#feedbackWait").removeClass('hide');
+		  $("#feedbackWait").html('<img src="<?php echo WEB_PATH?>/public/images/loader.gif" class="Floatmargin"> <span>Please wait while on the feedback form</span>');		
+		  dataToSubmit = checkUserDidSomeSubmission(true);
+		  if (false != dataToSubmit){
+			  submitFeedbackDataAndDoTheResponse(dataToSubmit, false);
+			  resetTheFeedbackForm();
+			  $('#feedback__mask, .feedback_window').hide();
+		  }else{
+				$("#tagPanelMesseging").removeClass("hide");
+				$("#tagPanelMesseging").removeClass("successMsgInTag");
+				$("#tagPanelMesseging").addClass("errorMsgInTag");
+				$("#tagPanelMesseging").fadeIn("slow");
+				$("#tagPanelMesseging").html("Oops : Invalid email address.");
+				setTimeout(function(){
+					$("#tagPanelMesseging").fadeOut("slow");
+				}, 3000);
+				resetTheFeedbackForm();
+		  }
+		  return false;
+	  });
+	  // This is for show and hide text in the message box
+	  $("#feedbackMessage").hide();
+	  $("#feedbackMessageReadOnly").focus(function(){
+		  $("#feedbackMessageReadOnly").hide();
+		  $("#feedbackMessage").show();
+		  $("#feedbackMessage").focus();
+	  });
+	  $("#feedbackMessage").focusout(function(){
+		  if ($("#feedbackMessage").val() ==""){
+			  $("#feedbackMessageReadOnly").show();
+			  $("#feedbackMessage").hide();
+		  }
+	  });
+	  // This is for the user ratings recording in the feedback panel
+	  $(".userRatings").click(function(){
+		  $(".userRatings").removeClass('Ratingactive');
+		  $("#"+$(this).attr('id')).addClass('Ratingactive');
+		  curRating = $(this).attr('id');
+	  });
+	  // This is for the radio button click of the user feedback
+	  $("input[name=userFeedback]").click(function(){
+		  mainTopic = $(this).closest('ul').parent().find("h5").html();
+		  curSubTopic = $(this).val();
+	  });
+	 function resetTheFeedbackForm(){
+	 	 curRating = "";
+		 curSubTopic = "";
+		 mainTopic = "";
+		 maskHeight = "";
+		 maskWidth = "";
+		 winH = "";
+		 winW = "";
+		 submitButtonClick = false;    
+	 	$('input[name=userFeedback]:checked').removeAttr('checked');
+		$("#nameOfGivingFeedback").val('Name');
+		$("#emailOfGivingFeedback").val('Email Address');
+		$("#feedbackMessageReadOnly").removeClass("hide");
+		$("#feedbackMessage").addClass("hide");
+		$(".userRatings").removeClass("Ratingactive");
+		$("#Rating3").addClass("Ratingactive");
+	 }
+	 function submitFeedbackDataAndDoTheResponse(submitData, eventOnClose){
+		  $.ajax({  
+			  type: "POST",
+			  url: "<?php echo WEB_PATH?>/library/ajaxFunctions.php?action=submitFeedbackformdata", 
+			  data: submitData, 
+			  success: function(server_response){				
+				  if (server_response == '1'){
+					  if (!eventOnClose){
+						  $("#tagPanelMesseging").removeClass("hide");
+						  $("#tagPanelMesseging").addClass("successMsgInTag");
+						  $("#tagPanelMesseging").fadeIn("slow");
+						  $("#tagPanelMesseging").html("Thank you for your feedback !");
+						  setTimeout(function(){
+							  $("#tagPanelMesseging").fadeOut("slow");
+						  }, 3000);
+					  }
+					  $("#feedbackWait").html('');	
+					  $("#feedbackWait").addClass('hide');
+				  }else{
+						$("#tagPanelMesseging").removeClass("hide");
+						$("#tagPanelMesseging").removeClass("successMsgInTag");
+						$("#tagPanelMesseging").addClass("errorMsgInTag");
+						$("#tagPanelMesseging").fadeIn("slow");
+						$("#tagPanelMesseging").html("Oops : Invalid email address.");
+						setTimeout(function(){
+							$("#tagPanelMesseging").fadeOut("slow");
+						}, 3000);
+				  }
+			  }
+		  });
+		  return false;
+	 }
+	 function checkUserDidSomeSubmission(checkEmail){
+			var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+				submitData = ""; 
+			<?php if((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+			if (($("#nameOfGivingFeedback").val() != "") && ($("#nameOfGivingFeedback").val() != "Name")){
+				submitData += "feedbackName=" + $("#nameOfGivingFeedback").val() + "&";
+			}
+			if (checkEmail){
+				if (($("#emailOfGivingFeedback").val() != "") && ($("#emailOfGivingFeedback").val() != "Email Address")){
+					if (!emailReg.test($("#emailOfGivingFeedback").val())){ 
+						submitData = false;
+						return false;
+					}else{
+						submitData += "feedbackEmail=" + $("#emailOfGivingFeedback").val() + "&";
+					}
+				}
+			}else{
+				if (emailReg.test($("#emailOfGivingFeedback").val())){ 
+					submitData += "feedbackEmail=" + $("#emailOfGivingFeedback").val() + "&";
+				}
+			}
+			<?php endif;?>
+			if ((mainTopic != "") && (curSubTopic != "")){
+				submitData += "mainTop=" + mainTopic + "&curTop=" + curSubTopic + "&";
+			}
+			if (($("#feedbackMessage").val() != "") && ($("#feedbackMessage").val() != "Message")){
+				submitData += "message=" + $("#feedbackMessage").val() + "&";
+			}
+			if (curRating != ""){
+				submitData += "rating=" + curRating;
+			}else{
+				if (checkEmail){
+					submitData += "rating=Rating3";
+				}else{
+					submitData += "";
+				}
+			}
+			return submitData;
+	 }
+});
+</script>
+<div id="tagPanelMesseging" class="hide"></div>
+<!-- #model box for the feedback box -->
+<div id="feedback_boxes">
+
+    <div id="feedback_dialog" class="feedback_window <?php if((isset($_SESSION['currentUser'])) || (isset($_SESSION['fbUser']))):?>extendedClassForFeedback<?php endif;?>">
+	<a href="javascript:void(0);" class="close"></a>
+	<h3 class="titleRed" style="text-align:center;">Feedback</h3>
+    <div class="clearH15"></div>
+
+	<?php if((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+	<input id="nameOfGivingFeedback" class="InputBg" type="text" name="newUser[name]" value="Name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="if (this.value == 'Name') {this.value = '';}" style="width:285px;" />
+    <input id="emailOfGivingFeedback" class="InputBg" type="text" name="newUser[email]" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}" onfocus="if (this.value == 'Email Address') {this.value = '';}" style="float:right;width:285px;" /> 
+    <div class="clearH"></div>
+    <?php endif;?>
+    
+    <div id="FeedbackRate">
+    	<h4>How did you find your experience today?</h4>
+        <a id="Rating5" href="javascript:void(0)" class="Rating5 userRatings"><div></div></a>
+        <a id="Rating4" href="javascript:void(0)" class="Rating4 userRatings"><div></div></a>
+        <a id="Rating3" href="javascript:void(0)" class="Rating3 Ratingactive userRatings"><div></div></a>
+        <a id="Rating2" href="javascript:void(0)" class="Rating2 userRatings"><div></div></a>
+        <a id="Rating1" href="javascript:void(0)" class="Rating1 userRatings"><div></div></a>
+    </div>
+    
+    <div class="clearH"></div>
+    
+    <div class="FeedTopics">
+    	<h5>Design and Usability</h5>
+        <ul>
+        	<li><label><input name="userFeedback" type="radio" value="Look of site" /> Look of site</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Search" /> Search</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Ease of use" /> Ease of use</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Layout of site" /> Layout of site</label></li>
+            <li><label><input name="userFeedback" type="radio" value="I found it..." /> I found it...</label></li>
+        </ul>
+    </div>
+    
+    <div class="FeedTopics">
+    	<h5>I had an Issue</h5>
+        <ul>
+        	<li><label><input name="userFeedback" type="radio" value="Page didn't load" /> Page didn't load</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Incorrect content" /> Incorrect content</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Log in issues" /> Log in issues</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Link didn't work" /> Link didn't work</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Site speed" /> Site speed</label></li>
+        </ul>
+    </div>
+    
+    <div class="FeedTopics">
+    	<h5>General Comments</h5>
+        <ul>
+        	<li><label><input name="userFeedback" type="radio" value="Positive" /> Positive</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Negative" /> Negative</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Suggestion" /> Suggestion</label></li>
+        </ul>
+    </div>
+    
+    <div class="FeedTopics" style="margin-right:0;float:right;">
+    	<h5>Our Information</h5>
+        <ul>
+        	<li><label><input name="userFeedback" type="radio" value="Quality of info" /> Quality of info</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Product info" /> Product info</label></li>
+            <li><label><input name="userFeedback" type="radio" value="I couldn't find..." /> I couldn't find...</label></li>
+            <li><label><input name="userFeedback" type="radio" value="I would like..." /> I would like...</label></li>
+            <li><label><input name="userFeedback" type="radio" value="Other" /> Other</label></li>
+        </ul>
+               
+    </div>
+    
+    <div class="clearH"></div>
+    
+    <textarea class="TextareaBg" id="feedbackMessage" style="width:490px;height:90px;"></textarea>
+    <textarea class="TextareaBg" id="feedbackMessageReadOnly" readonly="readonly" style="width:490px;height:90px;">Message</textarea>
+
+    <input type="button" name="submitFeedback" id="submitFeedback" value="Send" class="FeedSend" />
+    <input type="button" name="cancelFeedback" id="cancelFeedback" value="Cancel" class="FeedCancel" />
+    <div class="clearH"></div>
+    <div class="FeedThanks">
+    <strong>Thank you for helping us to improve Rehand&trade;</strong>
+    <div class="clear"></div>
+    Please note that we will not be responding to feedback at this time.
+    </div>
+    <span id="feedbackWait" class="hide"></span>
+    </div>
+    <div id="feedback__mask"></div>
+</div>

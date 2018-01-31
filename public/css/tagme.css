@@ -1,0 +1,22 @@
+.tm-tagbox{
+	position:absolute;
+	background-image:url(tag_box.png);
+	background-repeat:no-repeat;
+}
+.tm-tagpanel{
+	position:absolute;
+	border:#09C 2px solid;
+	background:#fff;
+}
+.tm-tagpanel input,.tm-tagpanel textarea{
+	display:block;
+}
+.image{
+	position:relative;
+	top:100px;
+	left:100px;
+	float:left;
+}
+
+
+

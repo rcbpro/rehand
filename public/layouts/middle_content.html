@@ -1,0 +1,390 @@
+<!-- #model box for the email share box plug-in box -->
+<div id="emailShare_boxes">
+    <div id="emailShare_dialog" class="emailShare_window">
+    <a href="javascript:void(0);" class="close"></a>
+    <span class="titlelogin">Share this to your friend</span>
+    <div class="clearH"></div>
+    <form id="contactFormForTheSeller" name="contactFormForTheSeller" action="" method="post">
+    	<?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+    	<input class="InputBg" type="text" name="contactFriend[name]" id="contactFriendName" value="" />
+    	<input class="InputBg" type="text" readonly="readonly" id="contactFriendNameReadOnly" value="Friend's name" />        
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[friend_email]" id="contactFriendRecieverEmail" value="" />
+    	<input class="InputBg" type="text" id="contactFriendRecieverEmailReadOnly" value="Friend's email address" />
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[your_name]" id="contactFriendYourName" value="Your name" onBlur="if (this.value == '') {this.value = 'Your name'; this.type='text'}" onFocus="if (this.value == 'Your name') {this.value = '';}" />        
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[email]" id="contactFriendEmail" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />
+        <?php else:?>
+    	<input class="InputBg" type="text" name="contactFriend[name]" id="contactFriendName" value="" />
+    	<input class="InputBg" type="text" readonly="readonly" id="contactFriendNameReadOnly" value="Friend's name" />        
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[friend_email]" id="contactFriendRecieverEmail" value="" />
+    	<input class="InputBg" type="text" id="contactFriendRecieverEmailReadOnly" value="Friend's email address" />
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[your_name]" id="contactFriendYourName" value="<?php echo ((isset($_SESSION['currentUser'])) ? $_SESSION['currentUser']['firstName'].' '.$_SESSION['currentUser']['lastName'] : $_SESSION['fbUser']['firstName'].' '.$_SESSION['fbUser']['lastName']);?>" />        
+        <div class="clearH10"></div>
+    	<input class="InputBg" type="text" name="contactFriend[email]" id="contactFriendEmail" value="<?php echo ((isset($_SESSION['currentUser'])) ? $_SESSION['currentUser']['email'] : $_SESSION['fbUser']['email']);?>" />
+        <?php endif;?>
+        <div class="clearH10"></div>                
+        <textarea class="TextareaBg" name="contactFriend[message]" id="contactFriendMessage"></textarea>
+        <textarea class="TextareaBg" id="contactFriendMessageReadOnly">I found the following item at www.rehand.com to be very interesting and I think you'd agree with me too. When you have time, head over to the following link to have a look. :)</textarea>
+        <div id="friendSellerMessage" class="hide"></div>
+        <div id="friendSellerMessageWaiting" class="hide"></div>      
+        <div id="friendSellerMessageSuccess" class="hide"></div>        
+        <div id="friendSellerMessageError" class="hide"></div>                
+        <div class="clearH10"></div>  
+        <input type="hidden" name="contactFriendLinkHidden" id="contactFriendShareLinkHidden" value="" />              
+        <input type="button" name="contactFriend" id="contactFriend" value="Contact Friend" class="MessageButton" />
+    </form>
+    </div>
+    <div id="emailShare__mask"></div>
+</div>
+<!-- #model box for the social media plug-in box -->
+<div id="social_boxes">
+    <div id="social_dialog" class="social_window">
+    	<a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Share to the world</span>
+        <div class="clearH"></div>
+        <!-- This is for the twitter -->
+        <div id="TwitterShare">
+			<span class="Twitterin"><span id='twitterShareBtn'></span></span>
+        </div>
+        <!-- This is for the facebook -->
+        <div id="FacebookShare">
+        	<div id="FacebookShareIn"><span class="Facebookin"> <span id='fbShareBtn' class='st_facebook_hcount'></span> <!--<span id='fbShareBtn'></span>--> </span></div>
+        </div>
+        <div id="PinterestShare">
+        	<div class="Pinterestin"><span id='pinterestShareBtn'></span></div>
+        </div>
+        <!-- This is for the Email -->
+        <div id="EmailShare">
+        	<span id="emailShareBtn" title=""><a href="javascript:void(0);"></a></span>
+        </div>
+    </div>
+    <div id="social__mask"></div>
+</div>
+<!-- #model box for the social media plug-in box -->
+<!-- This is the misuse of image in the rehand html box -->
+<div id="misUseReport_boxes">
+    <div id="misUseReport_dialog" class="misUseReport_window">
+    <a href="javascript:void(0);" class="close"></a>
+    <span class="titlelogin">Report this image</span>
+    <div class="clearH"></div>
+        <form id="misUseReportingFrm" name="misUseReportingFrm" action="" method="post">
+			<?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>	        
+            <input id="yourEmailForReportingMisuse" type="text" class="InputBg" name="yourEmailForReportingMisuse" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />                
+            <?php endif;?>
+            <textarea class="TextareaBg" name="contactAdmin[message]" id="contactAdminMessage"></textarea>
+            <textarea class="TextareaBg" id="contactAdminMessageReadOnly">Reason to report</textarea>
+            <input type="hidden" id="reportImgUrl" value="" />
+            <div id="messageSellerMessage" class="hide"></div>
+            <div id="messageSellerMessageWaiting" class="hide"></div>      
+            <div id="messageSellerMessageSuccess" class="hide"></div>        
+            <div id="messageSellerMessageError" class="hide"></div>                
+            <div class="clearH10"></div>                
+            <input type="button" name="contactAdmin" id="contactAdmin" value="Report misuse" class="MessageButton" />
+        </form>
+        <span id="successMsgForMisuseOfRehand"></span>
+    </div>
+    <div id="misUseReport__mask"></div>
+</div>
+
+<?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+<!-- This is for the recover password box -->
+<div id="login_recover_boxes">
+    <div id="login_recover_dialog" class="login_recover_window">
+    <a href="javascript:void(0);" class="close"></a>
+            <span class="titlelogin">Reset Password</span>
+            <div class="clearH"></div>
+            <form id="new_PasswordForm" name="new_PasswordForm" action="" method="post">
+                <input id="curemail" type="text" class="InputBg" name="cur_email" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />
+                <div class="clear"></div>
+                <span id="recover_password_status"></span>
+                <div id="forgotPassError"></div>
+                <div id="forgotPassSuccess"></div>                
+                <div class="clearH10"></div>
+                <input type="button" id="request_Password" name="request_Password" value="Reset Password" class="ResetButton" /></td>
+            </form>
+    </div>
+    <div id="login_recover_mask"></div>
+</div>
+<!-- This is for the login box -->
+<div id="login_boxes">
+    <div id="login_dialog" class="login_window">
+    <a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Login to Rehand</span>
+        <div class="clearH"></div>
+        <div id="login_box">
+            <form id="directLoginForm" name="directLoginForm" action="users/login" method="post">
+            	<input id="directLoginEmail" class="InputBg" type="text" name="directLogin[email]" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}" onfocus="if (this.value == 'Email Address') {this.value = '';}" />
+                <!--<input id="directLoginPassword" type="password" name="directLogin[password]" class="password InputBg" value="Password" onblur="if (this.value == '') {this.value = 'Password';this.type = 'text';}" onfocus="if (this.value == 'Password') {this.value = ''; this.type = 'password';}" />-->
+                <input type="password" id="directLoginPassword" name="directLogin[password]" class="password InputBg" value="" />
+                <input type="text" id="directLoginPassword_text" class="password InputBg" value="Password" readonly="readonly" />
+                <div id="directLoginError"><!-- --></div>
+                <div class="clearH10"></div>
+                <input id="directLoginSubmit" class="LoginButton" type="button" name="directLoginSubmit" value="" />
+                <div class="clearH15"></div>
+                <a id="ForgotPassword" href="javascript:void(0);">Forgot your password?</a>
+                <div class="floatr"><input type="checkbox" name="keep_me_logged_in" style="margin-right:7px;cursor:pointer;" />Remember Me</div>
+                <div class="clearH15"></div>
+                <img src="public/images/or.jpg" />
+                <div class="clear"></div>
+                <a href="users/fblogin" class="LoginFB"></a>
+                <div class="clearH15"></div>
+                <div class="TextCenter">Don't have an account? <a href="javascript:void(0);" id="secondaraySignUpLink">Sign up now!</a></div>
+            </form>
+        </div>
+    </div>
+    <div id="login_mask"></div>
+</div>
+<!-- #model box for the registration -->
+<div id="registration_boxes">
+    <div id="dialog" class="window">
+    <a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Register with Rehand</span>
+        <div class="clearH"></div>
+		  <?php if (empty($_POST)):?>
+          <div id="box">
+              <form id="newUser" name="newUser" action="users/register" method="post">
+                <input id="name" class="InputBg" type="text" name="newUser[name]" value="Name" onblur="if (this.value == '') {this.value = 'Name';}" onfocus="if (this.value == 'Name') {this.value = '';}" />
+                <!--<span id="name_status"></span>-->
+                <input id="user_id" class="InputBg" type="text" name="newUser[email]" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}" onfocus="if (this.value == 'Email Address') {this.value = '';}" />
+                <!--<span id="availability_status"></span>-->
+                <input type="password" id="password" name="newUser[password]" class="password InputBg" value="" /> 
+                <input type="text" id="password_text" class="password InputBg" value="Password" readonly="readonly" />
+                <!--<span id="password_status2"></span>-->
+                <div id="registerErrorMsg"></div>
+                <div class="clearH10"></div>
+                <input type="button" class="RegisterButton" name="Register" value="" id="newUserRegister" />
+              </form>
+              <div class="clearH15"></div>
+                <img src="public/images/or.jpg" />
+                <div class="clear"></div>
+                <a href="users/fblogin" class="LoginFB"></a>
+                <div class="clearH15"></div>
+                <div class="TextCenter">Already have an account? <a href="javascript:void(0);" id="secondaryLoginLink">Login now!</a></div>
+          </div>
+          <?php else:?>
+              <?php if (is_array($ViewableData)):
+                      $errorMsg = 'You have some fields have missing with values | Please fill these and come back !<br />';
+                      foreach($ViewableData as $each){
+                          $errorMsg .= '<span class=errorSpan>'.$each.'</span><br />';
+                      }
+                      echo $errorMsg;	
+              		else:?>
+                      <span class=errorSpan><?php echo $ViewableData;?></span>
+                      <?php if (empty($ViewableData)):?>
+                      <span class='normalMsgSpan'>You will be logged to the Rehand.com automatically</span>
+                      <span class='normalMsgSpan'>You will be redirected to the main page in a while : If not click </span> <span class='normalMsgSpan'><a href='<?php echo self::$globalConfig['base_url']?>'>here</a></span> 
+                      <?php endif;?>        
+              <?php endif;?>    
+          <?php endif;?>
+    </div>
+    <div id="mask"></div>
+</div>
+<?php endif;?>
+<div id="TopNavMain"> <a href="<?php echo self::$globalConfig['base_url']?>index.php" class="floatl" title="Rehand" id="Logo"></a> <a href="javascript:void(0);" id="feedBackLink" class="Feedbackbut"></a>
+  <?php if (
+	(REQ_PATH != self::$globalConfig['base_url']."users/activation/") && (REQ_PATH != self::$globalConfig['base_url']."users/activation") &&
+	(REQ_PATH != self::$globalConfig['base_url']."users/feedback/") && (REQ_PATH != self::$globalConfig['base_url']."users/feedback")
+):?>
+  <?php if ((isset($_SESSION['currentUser'])) || (isset($_SESSION['fbUser']))):?>
+  <ul id="mainMenu" class="myMenu">
+    <li id="Profile"> 
+    	<?php if (isset($_SESSION['fbUser'])):?>
+	    	<img id="profilePic" src="<?php 
+							            if ($_SESSION['fbUser']['profileImgUrlThumb'] != ""){
+                                            echo $_SESSION['fbUser']['profileImgUrlThumb'];
+                                        }else{
+                                        	echo self::$globalConfig['base_url'].'public/images/defaulttiny.gif';
+                                        }?>" /> 
+		<?php else:?>
+        	<img id="profilePic" src="<?php echo self::$globalConfig['base_url'].(($ViewableData['profileImage'] == "") ? (file_exists($ViewableData[0]['smallProfileImage']) ? $ViewableData[0]['smallProfileImage'] : 'public/images/defaulttiny.gif') : (file_exists($ViewableData['profileImage']) ? $ViewableData['profileImage'] : 'public/images/defaulttiny.gif'))?>" /> 
+        <?php endif;?>
+        <a href="javascript:void(0);"> G'Day
+      <?php if (isset($_SESSION['currentUser'])):?>
+      <?php echo $_SESSION['currentUser']['firstName']?>!
+      <?php elseif (isset($_SESSION['fbUser'])):?>
+      <?php echo $_SESSION['fbUser']['firstName']?>!
+      <?php endif;?>
+      </a>
+      <div class="menuarrow"></div>
+      <div class="clear"></div>
+      <ul style="width:130px;">
+        <li><a href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=uploaded" id="MyItems-sub">My Items</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>users/mygroups/" id="MyGroups-sub">My Groups</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>users/profile/" id="Settings-sub">Settings</a></li>
+        <?php if ((isset($_SESSION['currentUser'])) || (isset($_SESSION['fbUser']))):?>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>users/logout">Logout</a></li>
+        <?php endif;?>
+      </ul>
+    </li>
+    <li id="Inbox"><a href="<?php echo self::$globalConfig['base_url']?>users/notifications/?page=1">
+      <div class="floatl">Inbox</div>
+      <span id="unreadableNotificationsCount" class="Notifications"></span></a></li>
+    <li id="Groups"><a href="<?php echo self::$globalConfig['base_url']?>users/groups">Groups</a></li>
+    
+    <li id="Items"><a href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=add">Post Items</a></li>
+    <!--<li id="Items"><a href="javascript:void(0);">Items</a>
+      <div class="menuarrow"></div>
+      <div class="clear"></div>
+      <ul style="width:115px;">
+        <li><a class="imgLinks" id="taggedImgLink" href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=add">Sell Items</a></li>
+        <?php if (REQ_PATH == self::$globalConfig['base_url']."users/uploader/?view=uploaded"):?>
+        <li><a class="imgLinks" id="taggedImgLink" href="javascript:void(0);">Tagged Items</a></li>
+        <li><a class="imgLinks" id="untaggedImgLink" href="javascript:void(0);">Untagged Items</a></li>
+        <li><a class="imgLinks" id="favImgLink" href="javascript:void(0);">Favourite Items</a></li>
+        <?php else:?>
+        <li><a class="imgLinks" id="taggedImgLink" href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=uploaded#tagged_images">Tagged Items</a></li>
+        <li><a class="imgLinks" id="untaggedImgLink" href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=uploaded#untagged_images">Untagged Items</a></li>
+        <?php endif;?>
+      </ul>
+    </li>-->
+  </ul>
+  <ul id="iPhoneMenu" class="myMenu">
+  	<li id="Menu"><a href="javascript:void(0);">Menu</a>
+  		<ul style="width:100px;">
+            <!--<li><a class="imgLinks" id="taggedImgLink" href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=add">Post Items</a></li>-->
+            <li><a href="<?php echo self::$globalConfig['base_url']?>users/notifications/?page=1">Inbox <span id="unreadableNotificationsCount" class="Notifications"></span></a></li>
+            <li><a href="<?php echo self::$globalConfig['base_url']?>users/groups">Groups</a></li>
+            <li><a class="imgLinks" id="taggedImgLink" href="<?php echo self::$globalConfig['base_url']?>users/uploader/?view=uploaded">My Items</a></li>
+            <li><a href="<?php echo self::$globalConfig['base_url']?>users/profile/">Settings</a></li>
+            <?php if ((isset($_SESSION['currentUser'])) || (isset($_SESSION['fbUser']))):?>
+            	<li><a href="<?php echo self::$globalConfig['base_url']?>users/logout">Logout</a></li>
+            <?php endif;?>
+  		</ul>
+    </li>      
+  </ul>
+  <?php else:?>
+  <a href="javascript:void(0);" name="registration_modal" id="RegisterBut"></a><a href="javascript:void(0);" name="login_modal" id="directLogin"></a>
+  <ul id="iPhoneMenu" class="myMenu" style="margin-right:0;">
+    <li id="Menu"><a href="javascript:void(0);">Menu</a>
+      <div class="menuarrow"></div>
+      <div class="clear"></div>
+      <ul style="width:78px;">
+        <li><a href="javascript:void(0);" name="login_modal" id="directLoginResponsive" class="login_menu">Login</a></li>
+        <li><a href="javascript:void(0);" name="registration_modal" id="RegisterButResponsive" class="login_menu">Register</a></li>
+      </ul>
+    </li>
+  </ul>
+  <?php endif;?>
+  <ul class="myMenu" style="display:block;margin-right:0;">
+    <li id="About"><a href="javascript:void(0);">About</a>
+      <div class="menuarrow"></div>
+      <div class="clear"></div>
+      <ul class="AboutSub">
+        <li><a href="<?php echo self::$globalConfig['base_url']?>help/" id="Help-sub">Help</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>about/" id="About-sub">About</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>team/" id="Team-sub">Team</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>contact/" id="Contact-sub">Contact</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>terms_of_use/" id="Terms-sub">Terms of Use</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>privacy_policy/" id="Privacy-sub">Privacy Policy</a></li>
+        <li><a href="<?php echo self::$globalConfig['base_url']?>copyright/" id="Copyright-sub">Copyright</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul id="iPhoneMenu" class="myMenu" style="margin-right:0;">
+    <li id="Search"><a href="javascript:void(0);">Search</a>
+      <div class="menuarrow"></div>
+      <div class="clear"></div>
+      <ul style="width:270px;margin-left:-150px;float:left;border-radius:3px;">
+        <li style="border:none;">
+            <input name="" type="text" id="SearchTIPhone" value="Search Items or Groups..." onblur="if (this.value == '') {this.value = 'Search Items or Groups...';}" onfocus="if (this.value == 'Search Items or Groups...') {this.value = '';}" />
+            <input name="SearchB" type="button" id="SearchBIphone" /></li>
+      </ul>
+    </li>
+  </ul>
+  <div id="MainSearch">
+    	<input name="" type="text" id="SearchT" value="Search Items or Groups..." onblur="if (this.value == '') {this.value = 'Search Items or Groups...';}" onfocus="if (this.value == 'Search Items or Groups...') {this.value = '';}" />
+    	<input name="SearchB" type="button" id="SearchB" />
+  </div>
+</div>
+<div class="clearshadow"></div>
+<?php endif;?>
+<!-- This is for the notifications div -->
+<?php if ((isset($_SESSION['currentUser'])) || (isset($_SESSION['fbUser']))):?>
+<!-- Group create boxes -->
+<div id="group_boxes">
+    <div id="group_dialog" class="group_window">
+    <a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin">Create your Group</span>
+        <div class="clearH"></div>        
+        <div id="createYourGroupBox">
+            <form name="userGroupCreation" ation="users/createnewgroup" method="post">
+                <input type="text" name="Usergroups[groupname]" id="usergroupname" class="InputBg" value="Group Name" onBlur="if (this.value == '') {this.value = 'Group Name'; this.type='text'}" onFocus="if (this.value == 'Group Name') {this.value = '';}" />
+                <div class="clearH10"></div>
+                <textarea name="Usergroups[desc]" id="usergroupdesc" class="TextareaBg" onBlur="if (this.value == '') {this.value = 'Group Description'; this.type='text'}" onFocus="if (this.value == 'Group Description') {this.value = '';}">Group Description</textarea> 
+                <div class="clearH10"></div>        
+                <div id="messageSellerMessageError" class="hide"></div>  
+                <div id="clearDivAfterErrorMsg" class="clearH10 hide"></div>                                                    
+                <input type="submit" name="Usergroupssubmit" id="usergroupsubmit" value="Create Group" class="Button1" />
+            </form>
+        </div>
+    </div>
+    <div id="group__mask"></div>
+</div> 
+<!-- #model box for the notification model box -->
+<div id="notification_boxes">
+    <div id="notification_dialog" class="notification_window">
+    	<a href="javascript:void(0);" class="close"></a>
+        <span class="titlelogin"></span>
+        <div class="clearH"></div>
+        <form id="contactFormForTheSeller" name="contactFormForTheSeller" action="" method="post">
+            <?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+            <input class="InputBg" type="text" name="contactSeller[email]" id="buyerContactEmail" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />
+            <div class="clearH10"></div>
+            <?php else:?>
+            <input class="InputBg" type="text" name="contactSeller[email]" id="buyerContactEmail" value="<?php echo ((isset($_SESSION['currentUser'])) ? $_SESSION['currentUser']['email'] : $_SESSION['fbUser']['email']);?>" />
+            <div class="clearH10"></div>        
+            <?php endif;?>
+            <textarea class="TextareaBg" name="contactSeller[message]" id="buyerContactMessage"></textarea>
+            <textarea class="TextareaBg" id="buyerContactMessageReadOnly">Your message here...</textarea>
+            <div id="messageSellerMessage" class="hide"></div>
+            <div id="messageSellerMessageWaiting" class="hide"></div>      
+            <div id="messageSellerMessageSuccess" class="hide"></div>        
+            <div id="messageSellerMessageError" class="hide"></div>                
+            <div class="clearH10"></div>                
+            <input type="button" name="contactSeller" id="contactSeller" value="Contact Seller" class="MessageButton" />
+        </form>
+    </div>
+    <div id="notification__mask"></div>
+</div>
+
+
+
+<div id="notiticationsDiv" class="hide"></div>
+<?php endif;?>
+<div id="contact_boxes">
+    <div id="contact_dialog" class="contact_window">
+    <a href="javascript:void(0);" class="close"></a>
+    <span class="titlelogin">Message the Seller</span>
+    <div class="clearH"></div>
+    
+    <form id="contactFormForTheSellerIntag" name="contactFormForTheSeller" action="" method="post">
+    	<?php if ((!isset($_SESSION['currentUser'])) && (!isset($_SESSION['fbUser']))):?>
+            <input class="InputBg" type="text" name="contactSeller[email]" id="buyerContactEmailIntag" value="Your email address" onBlur="if (this.value == '') {this.value = 'Your email address'; this.type='text'}" onFocus="if (this.value == 'Your email address') {this.value = '';}" />
+            <div class="clearH10"></div>
+        <?php else:?>
+            <input class="InputBg" type="text" name="contactSeller[email]" id="buyerContactEmailIntag" value="<?php echo ((isset($_SESSION['currentUser'])) ? $_SESSION['currentUser']['email'] : $_SESSION['fbUser']['email']);?>" />
+            <div class="clearH10"></div>   
+        <?php endif;?>
+        
+        <textarea class="TextareaBg" name="contactSeller[message]" id="buyerContactMessageIntag"></textarea>
+        <textarea class="TextareaBg" id="buyerContactMessageIntagReadOnly">Your message here...</textarea>
+        <div id="messageSellerMessageIntag" class="hide"></div>
+        <div id="messageSellerMessageWaitingIntag" class="hide"></div>      
+        <div id="messageSellerMessageSuccessIntag" class="hide"></div>        
+        <div id="messageSellerMessageErrorIntag" class="hide"></div>                
+        <div class="clearH10"></div>                
+        <input type="button" name="contactSeller" id="contactSellerIntag" value="Contact Seller" class="MessageButton" />
+    </form>
+    
+    <span class="sellerContactNoIntag" type="text" id="sellerContactNoIntag"></span>
+    
+    </div>
+    <div id="contact__mask"></div>
+</div>
+
+<?php include VIEW_PATH.$this->currentArchitechture['appArchtecture']['controller'].DS.$this->currentArchitechture['appArchtecture']['view'].EXT ?>
+<?php include 'ajax_contents.html' ?>

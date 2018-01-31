@@ -1,0 +1,23 @@
+@font-face {font-family:helveticaneue;src:url('fonts/helveticaneue.otf');}
+html {margin:0;padding:0;border:0;background:url(images/bg.jpg) repeat #EFEFEF;height:100%;}
+body {margin:0;padding:0;font-size:12px;color:#5D5D5D;font-family:helveticaneue, Arial, Verdana, Helvetica, sans-serif;height:100%;background:url(images/headerbg.jpg) repeat-x;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;}
+a, a:visited{color:#b81621;text-decoration:none;} a:focus, a:hover, a:active{color:#333;} a img{border:none;}
+.clear {clear:both;} .clearH5 {clear:both;height:5px;} .clearH10 {clear:both;height:10px;} .clearH15 {clear:both;height:15px;} .clearH {clear:both;height:25px;} .clearH30 {clear:both;height:30px;} .clearH35 {clear:both;height:35px;} .clearH40 {clear:both;height:40px;} .floatl{float:left;} .floatr{float:right;}
+.SidebarWrap{margin:auto;width:230px;}
+#Sidebar{width:300px;background:url(images/sidebarbg.jpg) repeat #3A3F42;min-height:100%;float:left;color:#FFF;text-shadow:1px 1px #1F2024;}
+
+h1.Title1{font-size:15px;font-weight:200;height:35px;padding:17px 0 0 25px;text-shadow:1px 1px #EEE;float:left;background:url(images/title-arrow.jpg) no-repeat 55px bottom;} h1.Title1 span{color:#b81621;}
+h2.Title2{font-size:14px;} .link1{float:right;color:#CCC!important;} .link1:hover{text-decoration:underline;}
+p{text-align:center;font-size:13px;margin-bottom:15px;}
+.list1{list-style:none;line-height:17px;} .list1 li{background:url(images/bullet.jpg) no-repeat left top;padding-left:20px;margin-bottom:15px;}
+.Border1{clear:both;height:2px;background:url(images/border.jpg) repeat-x;}
+.Social{color:#FFF!important;font-size:13px;} .Social img{margin-right:10px;} .Social img.floatr{margin:7px 0 0 0!important;} .Social span{font-size:10px;width:150px;float:left;}
+
+#SearchT{background:#2B2F32;border:1px solid #1E2225;color:#CCC;text-shadow:1px 1px #1F2024;font-family:helveticaneue;padding:4px 5px 0 10px;height:28px;font-size:13px;float:left;width:170px;border-radius:4px 0 0 4px;outline:none;}
+#SearchB{background:url(images/search.jpg) no-repeat;width:41px;height:34px;border:none;cursor:pointer;float:left;}
+#Footer{font-size:11px;} #Footer a{color:#FFF!important;margin:0 9px 0 0;} #Footer a.leftmargin{margin:0 9px 0 9px;} #Footer a:hover{text-decoration:underline;} #Footer img.floatl{margin-right:8px;}
+
+#RegsiterWrap{float:right;width:184px;height:29px;margin:12px 15px 0 0;background:url(images/register.jpg) no-repeat top left;}
+#LoginBut{background:url(images/register.jpg) no-repeat top left;width:83px;height:29px;float:left;} #LoginBut:hover{background:url(images/register.jpg) no-repeat bottom left;}
+.RegisterBut{background:url(images/register.jpg) no-repeat top right;width:101px;height:29px;float:left;} .RegisterBut:hover{background:url(images/register.jpg) no-repeat bottom right;}

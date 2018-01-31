@@ -1,0 +1,38 @@
+body{font-size:12px;}
+#allWrapper{width:100%;}
+.PageContent{width:87%;margin:-6px auto 0 auto;}
+#container li{margin:0 0 20px 0;}
+#GroupsMain li{margin:0 0 20px 0;width:318px;}
+.Feedbackbut{display:none;}
+#MainSearch{display:none;}
+#directLogin{display:none;}
+#RegisterBut{display:none;}
+.myMenu > li{margin-right:7px;width:34px;}
+.myMenu > li > a{text-indent:-99999px;padding:9px 15px 2px 20px;}
+.menuarrow{display:none;}
+#profilePic{border-radius:3px;}
+#Profile > a{display:none;}
+.Notifications{margin:0 20px 0 0;}
+.myMenu{margin:15px 0 0 0;}
+#iPhoneMenu{display:block;}
+#mainMenu, #GroupsMenu strong{display:none;}
+.NoMore{width:100%;}
+#loadOtherImages{width:100%;}
+#Logo{width:180px;}
+#clearGroupMainshadow{width:100%;}
+#NotificationsMain li{width:98%;}
+.AboutSub{width:110px!important;margin-left:-38px;float:left!important;}
+#GroupsMenu{padding-top:10px;height:60px;}
+.GroupSearch{margin-left:10px;}
+#createYourGroupLink{margin:3px 0 0 10px;}
+#resetSearchGroupName{margin:1px 0 0 10px;}
+#UploadWrapper{margin:71px 0 0 0px;}
+.UploaderTitle1{margin-left:15px;}
+.thumb{margin-right:0;}
+.HideMob{display:none;}
+.DACC{margin-left:0;}
+#updateProfileSettingsForm .Itemtitle{width:100%;}
+.ProSubMob{margin-left:0;}
+#profileLargeImage{width:280px;}
+#fancybox-wrap{padding:20px 0!important;}
+/*#fancybox-overlay{background:none!important;}*/
